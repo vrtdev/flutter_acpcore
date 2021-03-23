@@ -13,7 +13,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_acpcore/flutter_acpidentity.dart';
 import 'package:flutter_acpcore/src/acpmobile_visitor_id.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   const MethodChannel channel = MethodChannel('flutter_acpidentity');

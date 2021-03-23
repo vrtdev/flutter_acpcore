@@ -11,12 +11,12 @@ governing permissions and limitations under the License.
 
 /// The ACPExtensionEvent class contains the event that is used by the internal Event Hub.
 class ACPExtensionEvent {
-  Map<dynamic, dynamic> _data;
+  late Map<dynamic, dynamic> _data;
 
   ACPExtensionEvent(this._data);
 
-  ACPExtensionEvent.createEvent(final String eventName, final String eventType,
-      final String eventSource, final Map<dynamic, dynamic> eventData) {
+  ACPExtensionEvent.createEvent(final String? eventName, final String? eventType,
+      final String? eventSource, final Map<dynamic, dynamic>? eventData) {
     final Map<dynamic, dynamic> eventConstructorData = {
       "eventName": eventName,
       "eventType": eventType,
@@ -32,13 +32,13 @@ class ACPExtensionEvent {
   Map<dynamic, dynamic> get data => _data;
 
   /// The name of this event.
-  String get eventName => _data['eventName'];
+  String? get eventName => _data['eventName'];
 
   /// The type of this event.
-  String get eventType => _data['eventType'];
+  String? get eventType => _data['eventType'];
 
   /// The source of this event.
-  String get eventSource => _data['eventSource'];
+  String? get eventSource => _data['eventSource'];
 
   /// The event data for this event.
   Map<dynamic, dynamic> get eventData => _data['eventData'] ?? {};

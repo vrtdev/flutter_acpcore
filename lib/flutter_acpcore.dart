@@ -22,49 +22,42 @@ class FlutterACPCore {
 
   /// Gets the current Core extension version.
   static Future<String> get extensionVersion async {
-    final String version = await _channel.invokeMethod('extensionVersion');
-    return version;
+    final String? version = await _channel.invokeMethod('extensionVersion');
+    return version!;
   }
 
   /// This method sends a generic Analytics action tracking hit with context data.
-  static Future<void> trackAction(String action, {Map<String, String> data}) {
-    return _channel.invokeMethod(
-        'track', {'type': 'action', 'name': action ?? "", 'data': data ?? {}});
+  static Future<void> trackAction(String? action, {Map<String, String>? data}) {
+    return _channel.invokeMethod('track', {'type': 'action', 'name': action ?? "", 'data': data ?? {}});
   }
 
   /// This method sends a generic Analytics state tracking hit with context data.
-  static Future<void> trackState(String state, {Map<String, String> data}) {
-    return _channel.invokeMethod(
-        'track', {'type': 'state', 'name': state ?? "", 'data': data ?? {}});
+  static Future<void> trackState(String? state, {Map<String, String>? data}) {
+    return _channel.invokeMethod('track', {'type': 'state', 'name': state ?? "", 'data': data ?? {}});
   }
 
   /// Submits a generic event containing the provided IDFA with event type `generic.identity`.
-  static Future<void> setAdvertisingIdentifier(String aid) async {
+  static Future<void> setAdvertisingIdentifier(String? aid) async {
     return _channel.invokeMethod<void>('setAdvertisingIdentifier', aid ?? "");
   }
 
   ///  Called by the extension public API to dispatch an event for other extensions or the internal SDK to consume. Any events dispatched by this call will not be processed until after `start` has been called.
-  static Future<bool> dispatchEvent(ACPExtensionEvent event) async {
-    final bool result =
-        await _channel.invokeMethod('dispatchEvent', event.data);
+  static Future<bool?> dispatchEvent(ACPExtensionEvent event) async {
+    final bool? result = await _channel.invokeMethod('dispatchEvent', event.data);
     return result;
   }
 
   /// You should use this method when the Event being passed is a request and you expect an event in response. Any events dispatched by this call will not be processed until after `start` has been called.
-  static Future<ACPExtensionEvent> dispatchEventWithResponseCallback(
-      ACPExtensionEvent event) async {
-    final Map<dynamic, dynamic> responseEventData = await _channel.invokeMethod(
-        'dispatchEventWithResponseCallback', event.data);
-    return ACPExtensionEvent(responseEventData);
+  static Future<ACPExtensionEvent> dispatchEventWithResponseCallback(ACPExtensionEvent event) async {
+    final Map<dynamic, dynamic>? responseEventData =
+        await _channel.invokeMethod('dispatchEventWithResponseCallback', event.data);
+    return ACPExtensionEvent(responseEventData!);
   }
 
   /// Dispatches a response event for a paired event that was sent to dispatchEventWithResponseCallback or received by an extension listener hear method.
-  static Future<bool> dispatchResponseEvent(
-      ACPExtensionEvent responseEvent, ACPExtensionEvent requestEvent) async {
-    final bool result = await _channel.invokeMethod('dispatchResponseEvent', {
-      "responseEvent": responseEvent.data,
-      "requestEvent": requestEvent.data
-    });
+  static Future<bool?> dispatchResponseEvent(ACPExtensionEvent responseEvent, ACPExtensionEvent requestEvent) async {
+    final bool? result = await _channel.invokeMethod(
+        'dispatchResponseEvent', {"responseEvent": responseEvent.data, "requestEvent": requestEvent.data});
     return result;
   }
 
@@ -109,7 +102,7 @@ class FlutterACPCore {
   /// Using `null` values is allowed and effectively removes the configuration parameter from the current configuration.
   ///
   /// @param  {Map<String, Object>} configMap configuration key/value pairs to be updated or added. A value of `null` has no effect.
-  static Future<void> updateConfiguration(Map<String, Object> configMap) async {
+  static Future<void> updateConfiguration(Map<String, Object>? configMap) async {
     await _channel.invokeMethod('updateConfiguration', configMap ?? {});
   }
 }

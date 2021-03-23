@@ -32,10 +32,10 @@ class ACPMobileVisitorId {
 
   ACPMobileVisitorId(this._data);
 
-  String get idOrigin => _data['idOrigin'];
-  String get idType => _data['idType'];
-  String get identifier => _data['identifier'];
-  ACPMobileVisitorAuthenticationState get authenticationState =>
+  String? get idOrigin => _data['idOrigin'];
+  String? get idType => _data['idType'];
+  String? get identifier => _data['identifier'];
+  ACPMobileVisitorAuthenticationState? get authenticationState =>
       _data['authenticationState'];
 
   @override
